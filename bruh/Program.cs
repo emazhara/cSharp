@@ -146,13 +146,13 @@ namespace bruh
     {
         private readonly int _height;
         private readonly int _width;
-        private readonly double[,] _matr;
+        private readonly double[,] _matrix;
 
-        public Matrix(int height, int width, double[,] matr)
+        public Matrix(int height, int width, double[,] matrix)
         {
             this._height = height;
             this._width = width;
-            this._matr = matr;
+            this._matrix = matrix;
         }
         public Matrix(string filename)
         {
@@ -164,7 +164,7 @@ namespace bruh
                 _width = firstLine.Length;
                 _height++;
                 while (reader.ReadLine() != null) _height++;
-                _matr = new double[_height,_width];
+                _matrix = new double[_height,_width];
                 reader.Close();
                 reader = new StreamReader(filename);
                 int matrLine = 0;
@@ -174,7 +174,7 @@ namespace bruh
                     if (numbers.Length != _width)
                         throw new Exception("Incorrect amount of numbers in the line\n");
                     for(int i = 0; i < numbers.Length; i++){
-                        this._matr[matrLine,i] = Convert.ToDouble(numbers[i]);
+                        this._matrix[matrLine,i] = Convert.ToDouble(numbers[i]);
                     }
                 }
             }
@@ -200,7 +200,7 @@ namespace bruh
                 for (int j = 0; j < o._width; j++)
                 {
                     for (int k = 0; k < this._width; k++)
-                        newMatr[i,j] += this._matr[i, k] * o._matr[k, j];
+                        newMatr[i,j] += this._matrix[i, k] * o._matrix[k, j];
                 }
             }
 
@@ -214,10 +214,10 @@ namespace bruh
             {
                 for (int j = 0; j < this._width - 1; j++)
                 {
-                    answer = String.Concat(answer, this._matr[i, j].ToString());
+                    answer = String.Concat(answer, this._matrix[i, j].ToString());
                     answer = String.Concat(answer, " ");
                 }
-                answer = String.Concat(answer, this._matr[i, this._width - 1].ToString());
+                answer = String.Concat(answer, this._matrix[i, this._width - 1].ToString());
                 answer = String.Concat(answer, "\n");
             }
             return answer;
